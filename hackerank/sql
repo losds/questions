@@ -1,0 +1,18 @@
+https://www.hackerrank.com/challenges/placements/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=60-day-campaign
+
+with salary_friend as(
+select s.name as s_name, p.salary as salary_friend,f.id user_id, f.friend_id friend_id
+from friends f
+join students s on s.id= f.id
+join packages p on p.id=f.friend_id)
+,
+user_salary as(
+select p.salary as user_salary,s.id as user_id,s.name as user_name
+    from students s 
+    join packages p on s.id=p.id
+)
+select us.user_name
+from salary_friend sf
+join user_salary us on us.user_id=sf.user_id
+where us.user_salary<sf.salary_friend
+order by sf.salary_friend asc
